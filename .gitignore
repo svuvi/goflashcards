@@ -1,0 +1,6 @@
+*_templ.go
+*.db
+tmp/
+goflashcards
+goflashcards-old
+goflashcards-new
