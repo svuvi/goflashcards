@@ -1,0 +1,13 @@
+package components
+
+import "fmt"
+
+templ MakeCard(id int) {
+	<card>
+		<h5 style="color: #7b7b7b;">{ fmt.Sprint(id) }</h5>
+		<grid>
+			<div col="1/2"><input type="text" name={ fmt.Sprint("term-", id) } placeholder="Term"/></div>
+			<div col="1/2"><input type="text" name={ fmt.Sprint("definition-", id) } placeholder="Definition"/></div>
+		</grid>
+	</card>
+}
