@@ -1,0 +1,20 @@
+package layouts
+
+import "github.com/svuvi/goflashcards/components"
+
+templ Find() {
+	@Base() {
+		@components.Nav()
+		<section>
+			<card>
+				<h1 txt="c">Type in the code</h1>
+				<p>
+					Get it from the author of your set. 
+					<br/>
+					Or paste the link.
+				</p>
+				<input type="text" name="code" id="codeInput" placeholder="ABCDEF"/>
+			</card>
+		</section>
+	}
+}

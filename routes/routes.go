@@ -23,8 +23,8 @@ func (h *BaseHandler) NewRouter() http.Handler {
 
 	mux.Handle("GET /feedback", templ.Handler(layouts.Feeback()))
 	/* mux.Handle("GET /make")
-	mux.Handle("GET /my")
-	mux.Handle("GET /find") */
+	mux.Handle("GET /my") */
+	mux.Handle("GET /find", templ.Handler(layouts.Find()))
 
 	return mux
 }
