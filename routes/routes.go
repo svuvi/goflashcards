@@ -19,7 +19,12 @@ func (h *BaseHandler) NewRouter() http.Handler {
 	mux := http.NewServeMux()
 
 	mux.Handle("GET /{$}", templ.Handler(layouts.Index()))
-	mux.Handle("/static/", http.FileServer(http.FS(assets.Static)))
+	mux.Handle("GET /static/", http.FileServer(http.FS(assets.Static)))
+
+	mux.Handle("GET /feedback", templ.Handler(layouts.Feeback()))
+	/* mux.Handle("GET /make")
+	mux.Handle("GET /my")
+	mux.Handle("GET /find") */
 
 	return mux
 }

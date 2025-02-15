@@ -1,0 +1,19 @@
+package layouts
+
+import "github.com/svuvi/goflashcards/components"
+
+templ Feeback() {
+	@Base() {
+		@components.Nav()
+		<section>
+			<h1>For ideas, suggestions, bug reports, issues</h1>
+			<p>
+				Even if you just find something inconvinient, or want to say "hey this app was useful to me", your feedback is appreciated.
+				<br/>
+				E-mail me at:
+				<br/>
+				Or open an issue on <a href="">GitHub</a>
+			</p>
+		</section>
+	}
+}

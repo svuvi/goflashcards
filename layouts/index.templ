@@ -1,20 +1,10 @@
 package layouts
 
+import "github.com/svuvi/goflashcards/components"
+
 templ Index() {
 	@Base() {
-		<nav>
-			<!-- use fx attribute for fixed positioning -->
-			<label>
-				<input type="checkbox"/>
-				<header>
-					<a href="/">GoFLashcards</a>
-				</header>
-				<ul>
-					<li><a href="/feedback">Give feedback</a></li>
-					<li><a href="/my">My flashcards</a></li>
-				</ul>
-			</label>
-		</nav>
+		@components.Nav()
 		<section txt="c" style="height: 90vh; display: flex; flex-direction: column; place-content: center;" mt->
 			<h1>Flashcards</h1>
 			<p>Study your flashcards in peace.<br/>With no ads, accounts, limits and paywalls.</p>
