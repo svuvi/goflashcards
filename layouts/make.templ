@@ -7,11 +7,15 @@ templ Make() {
 		@components.Nav()
 		<section>
 			<form>
-				<h1>Create a new set of flashcards</h1>
-				<div style="margin-bottom: 2rem;">
-					<button>Create</button>
-					<button primary>Create and practice</button>
-				</div>
+				<grid>
+					<div col="7/12">
+						<h2>Create a new set of flashcards</h2>
+					</div>
+					<div col="5/12" txt="r">
+						<button>Create</button>
+						<button primary>Create and practice</button>
+					</div>
+				</grid>
 				<input type="text" name="title" placeholder="Enter a title"/>
 				<textarea name="description" placeholder="And a description"></textarea>
 				<button style="margin-bottom: 2rem;">+ Import from file</button>
@@ -19,7 +23,7 @@ templ Make() {
 					@components.MakeCard(i + 1)
 				}
 				<div txt="c" style="width: 100%; margin: 6rem 0;"><button round>+ add card</button></div>
-				<div>
+				<div txt="r">
 					<button>Create</button>
 					<button primary>Create and practice</button>
 				</div>
