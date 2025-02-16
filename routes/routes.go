@@ -37,6 +37,7 @@ func (h *BaseHandler) NewRouter() http.Handler {
 	mux.Handle("GET /find", templ.Handler(layouts.Find()))
 
 	mux.HandleFunc("GET /set/{setID}/{slug}", h.setView)
+	mux.HandleFunc("GET /set/{setID}/{slug}/{cardNumber}", h.setView)
 
 	mux.HandleFunc("GET /", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNotFound)
@@ -59,13 +60,18 @@ func (h *BaseHandler) setView(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	cardNumber, err := strconv.Atoi(r.PathValue("cardNumber"))
+	if err != nil {
+		cardNumber = 1
+	}
+
 	cardsTotal, _ := h.CardRepo.CountCardsInSet(setID)
-	card, _ := h.CardRepo.GetNthCard(setID, 1)
+	card, _ := h.CardRepo.GetNthCard(setID, cardNumber)
 
 	render(w, r, layouts.Set(layouts.SetProps{
 		Set:            set,
 		Card:           card,
 		CardsTotal:     cardsTotal,
-		ThisCardNumber: 1,
+		ThisCardNumber: cardNumber,
 	}))
 }

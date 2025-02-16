@@ -35,11 +35,35 @@ templ Set(props SetProps) {
 					<card>Test</card>
 				</div>
 			</grid>
-			@components.FlipCard(props.Card)
-			<div txt="c" style="width: 100%;">
-				<button round primary>&lt;=</button>
-				<span style="margin-right: 1rem;">{ fmt.Sprintf("%d/%d", props.ThisCardNumber, props.CardsTotal) }</span>
-				<button round primary>=&gt;</button>
+			<div id="flipcard-area">
+				@components.FlipCard(props.Card)
+				<div txt="c" style="width: 100%;">
+					if props.ThisCardNumber == 1 {
+						<button round disabled>&lt;=</button>
+					} else {
+						<a
+							hx-select="#flipcard-area"
+							hx-target="#flipcard-area"
+							hx-get={ fmt.Sprintf("/set/%d/%s/%d", props.Set.ID, props.Set.Slug, (props.ThisCardNumber - 1)) }
+							hx-replace-url="true"
+							btn
+							round
+						>&lt;=</a>
+					}
+					<span style="margin-right: 1rem;">{ fmt.Sprintf("%d/%d", props.ThisCardNumber, props.CardsTotal) }</span>
+					if props.ThisCardNumber == props.CardsTotal {
+						<button round disabled>=&gt;</button>
+					} else {
+						<a
+							btn
+							round
+							hx-select="#flipcard-area"
+							hx-target="#flipcard-area"
+							hx-get={ fmt.Sprintf("/set/%d/%s/%d", props.Set.ID, props.Set.Slug, (props.ThisCardNumber + 1)) }
+							hx-replace-url="true"
+						>=&gt;</a>
+					}
+				</div>
 			</div>
 			<hr style="margin: 2rem 0 4rem 0"/>
 			<p>
