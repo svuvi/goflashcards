@@ -15,6 +15,21 @@ func NewFlashcardSetRepo(db *sqlx.DB) *FlashcardSetRepo {
 	}
 }
 
+func (r *FlashcardSetRepo) Create(set models.FlashcardSet) (int, error) {
+	query := `INSERT INTO flashcard_sets (slug, title, description, edit_token) VALUES (?, ?, ?, ?)`
+	result, err := r.db.Exec(query, set.Slug, set.Title, set.Description, set.EditToken)
+	if err != nil {
+		return 0, err
+	}
+
+	lastInsertID, err := result.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+
+	return int(lastInsertID), nil
+}
+
 func (r *FlashcardSetRepo) Get(id int) (models.FlashcardSet, error) {
 	var set models.FlashcardSet
 	err := r.db.Get(&set, "SELECT * FROM flashcard_sets WHERE id = ?", id)
@@ -25,6 +40,22 @@ func (r *FlashcardSetRepo) List() ([]models.FlashcardSet, error) {
 	var sets []models.FlashcardSet
 	err := r.db.Select(&sets, "SELECT * FROM flashcard_sets")
 	return sets, err
+}
+
+func (r *CardRepo) CountCardsInSet(setID int) (int, error) {
+	var count int
+	err := r.db.Get(&count, "SELECT COUNT(*) FROM cards WHERE set_id = ?", setID)
+	return count, err
+}
+
+func (r *CardRepo) GetNthCard(setID, n int) (models.Card, error) {
+	var card models.Card
+	err := r.db.Get(&card, `
+		SELECT * FROM cards 
+		WHERE set_id = ?
+		LIMIT 1 OFFSET ?`,
+		setID, n-1)
+	return card, err
 }
 
 func (r *FlashcardSetRepo) Update(set models.FlashcardSet) error {
