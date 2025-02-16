@@ -1,14 +1,15 @@
 package db
 
 import (
-	"database/sql"
 	"log"
 
+	"github.com/jmoiron/sqlx"
 	_ "github.com/mattn/go-sqlite3"
 )
 
-func ConnectDB(location string) *sql.DB {
-	db, err := sql.Open("sqlite3", location)
+func ConnectDB(location string) *sqlx.DB {
+	db := sqlx.MustConnect("sqlite3", location)
+	err := db.Ping()
 	if err != nil {
 		log.Fatal("Impossible to connect to the DB:\n", err)
 	}
