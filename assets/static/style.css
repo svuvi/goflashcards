@@ -1,0 +1,32 @@
+.flipcard-container {
+  margin: 2rem 0;
+  perspective: 4000px;
+}
+
+.flipcard {
+  padding: 0;
+  height: 50vh;
+  position: relative;
+  transition: transform 300ms;
+  transform-style: preserve-3d;
+}
+
+.flipcard-container:hover > .flipcard {
+  cursor: pointer;
+  /* transform: rotateX(180deg); */
+}
+
+.flipcard-front,
+.flipcard-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backface-visibility: hidden;
+}
+
+.flipcard-back {
+  transform: rotateX(180deg);
+}

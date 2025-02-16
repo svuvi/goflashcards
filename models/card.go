@@ -10,6 +10,8 @@ type Card struct {
 type CardRepository interface {
 	Create(Card) (Card, error)
 	List(setID int) ([]Card, error)
+	CountCardsInSet(setID int) (int, error)
+	GetNthCard(setID, n int) (Card, error)
 	Update(Card) error
 	Delete(id int) error
 }

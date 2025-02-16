@@ -1,0 +1,15 @@
+package components
+
+import (
+	"fmt"
+	"github.com/svuvi/goflashcards/models"
+)
+
+templ FlipCard(card models.Card) {
+	<div class="flipcard-container">
+		<card txt="c" class="flipcard" onclick="toggleFlip(this)">
+			<div class="flipcard-front" id={ fmt.Sprintf("card-%d-def", card.ID) }><h1 style="margin: 0;">{ card.Definition } front</h1></div>
+			<div class="flipcard-back" id={ fmt.Sprintf("card-%d-term", card.ID) }><h1 style="margin: 0;">{ card.Term } back</h1></div>
+		</card>
+	</div>
+}
