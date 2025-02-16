@@ -16,7 +16,7 @@ func main() {
 	db := db.ConnectDB("database.db")
 	defer db.Close()
 
-	h := routes.NewBaseHandler()
+	h := routes.NewBaseHandler(db)
 	router := middleware.NewLogger(h.NewRouter())
 
 	server := http.Server{
