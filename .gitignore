@@ -1,5 +1,6 @@
 *_templ.go
 *.db
+.vscode/
 tmp/
 goflashcards
 goflashcards-old
