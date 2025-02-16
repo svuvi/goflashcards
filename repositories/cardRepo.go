@@ -37,6 +37,22 @@ func (r *CardRepo) List(setID int) ([]models.Card, error) {
 	return cards, err
 }
 
+func (r *CardRepo) CountCardsInSet(setID int) (int, error) {
+	var count int
+	err := r.db.Get(&count, "SELECT COUNT(*) FROM cards WHERE set_id = ?", setID)
+	return count, err
+}
+
+func (r *CardRepo) GetNthCard(setID, n int) (models.Card, error) {
+	var card models.Card
+	err := r.db.Get(&card, `
+		SELECT * FROM cards 
+		WHERE set_id = ?
+		LIMIT 1 OFFSET ?`,
+		setID, n-1)
+	return card, err
+}
+
 func (r *CardRepo) Update(card models.Card) error {
 	query := `UPDATE cards SET term = ?, definition = ? WHERE id = ?`
 	_, err := r.db.Exec(query, card.Term, card.Definition, card.ID)

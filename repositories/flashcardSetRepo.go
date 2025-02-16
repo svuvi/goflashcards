@@ -42,22 +42,6 @@ func (r *FlashcardSetRepo) List() ([]models.FlashcardSet, error) {
 	return sets, err
 }
 
-func (r *CardRepo) CountCardsInSet(setID int) (int, error) {
-	var count int
-	err := r.db.Get(&count, "SELECT COUNT(*) FROM cards WHERE set_id = ?", setID)
-	return count, err
-}
-
-func (r *CardRepo) GetNthCard(setID, n int) (models.Card, error) {
-	var card models.Card
-	err := r.db.Get(&card, `
-		SELECT * FROM cards 
-		WHERE set_id = ?
-		LIMIT 1 OFFSET ?`,
-		setID, n-1)
-	return card, err
-}
-
 func (r *FlashcardSetRepo) Update(set models.FlashcardSet) error {
 	query := `UPDATE flashcard_sets SET slug = ?, title = ?, description = ?, edit_token = ? WHERE id = ?`
 	_, err := r.db.Exec(query, set.Slug, set.Title, set.Description, set.EditToken, set.ID)
