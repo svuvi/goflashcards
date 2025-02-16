@@ -1,0 +1,15 @@
+package layouts
+
+import "fmt"
+import "github.com/svuvi/goflashcards/components"
+
+templ Err(statusCode int, errText string) {
+	@Base() {
+		@components.Nav()
+		<section>
+			<h1>Error { fmt.Sprint(statusCode, " - ", errText) }</h1>
+			<a href="/" btn primary>Go to home page</a>
+			<a href="/find" btn>Find your set</a>
+		</section>
+	}
+}

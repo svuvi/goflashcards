@@ -1,0 +1,20 @@
+package layouts
+
+import "github.com/svuvi/goflashcards/components"
+
+templ My() {
+	@Base() {
+		@components.Nav()
+		<section>
+			<grid>
+				<div col="3/4">
+					<h1>My flashcards sets</h1>
+					<p>Note: Your sets are linked to your device. If you reset your browser or device, you'll lose these entries and won't be able to edit or delete them.  However, they will still be publicly accessible through their link.</p>
+				</div>
+				<div col="1/4">
+					<a href="/make" btn primary>Make a new set</a>
+				</div>
+			</grid>
+		</section>
+	}
+}

@@ -1,0 +1,50 @@
+package layouts
+
+import "github.com/svuvi/goflashcards/components"
+import "github.com/svuvi/goflashcards/models"
+import "fmt"
+
+type SetProps struct {
+	Set            models.FlashcardSet
+	Card           models.Card
+	CardsTotal     int
+	ThisCardNumber int
+}
+
+templ Set(props SetProps) {
+	@Base() {
+		@components.Nav()
+		<section>
+			<grid>
+				<div col="2/3">
+					<h1>{ props.Set.Title }</h1>
+				</div>
+				<div col="1/3" txt="r">
+					<button round primary>[	]</button>
+					<button round>...</button>
+				</div>
+			</grid>
+			<grid txt="c">
+				<div col="1/3">
+					<card>Flashcards</card>
+				</div>
+				<div col="1/3">
+					<card>Learn</card>
+				</div>
+				<div col="1/3">
+					<card>Test</card>
+				</div>
+			</grid>
+			@components.FlipCard(props.Card)
+			<div txt="c" style="width: 100%;">
+				<button round primary>&lt;=</button>
+				<span style="margin-right: 1rem;">{ fmt.Sprintf("%d/%d", props.ThisCardNumber, props.CardsTotal) }</span>
+				<button round primary>=&gt;</button>
+			</div>
+			<hr style="margin: 2rem 0 4rem 0"/>
+			<p>
+				{ props.Set.Description }
+			</p>
+		</section>
+	}
+}
